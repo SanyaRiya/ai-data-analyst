@@ -1,0 +1,75 @@
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from backend.services.file_service import (
+    save_uploaded_file,
+    load_dataset,
+)
+
+from backend.agents.coordinator_agent import CoordinatorAgent
+
+
+app = FastAPI(
+    title="AI Data Analyst Team API",
+    version="1.0.0",
+    description="Backend API for the AI Data Analyst Team project."
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.mount(
+    "/charts",
+    StaticFiles(directory="backend/charts"),
+    name="charts",
+)
+
+app.mount(
+    "/reports",
+    StaticFiles(directory="backend/reports"),
+    name="reports",
+)
+
+@app.get("/")
+def root():
+    return {
+        "message": "AI Data Analyst Team API is running!"
+    }
+
+
+@app.post("/upload")
+async def upload_dataset(file: UploadFile = File(...)):
+    """
+    Upload a CSV or Excel dataset and run the complete AI Data Analyst pipeline.
+    """
+
+    try:
+        # Save uploaded file
+        file_path = save_uploaded_file(file, file.filename)
+
+        # Load dataset
+        dataset = load_dataset(file_path)
+
+        # Run coordinator
+        coordinator = CoordinatorAgent()
+
+        result = coordinator.run(
+            dataset=dataset,
+            filename=file.filename,
+        )
+
+        return {
+            "filename": file.filename,
+            **result
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
