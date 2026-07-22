@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from pathlib import Path
 from services.file_service import (
     save_uploaded_file,
     load_dataset,
@@ -22,6 +23,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+Path("charts").mkdir(parents=True, exist_ok=True)
+Path("reports").mkdir(parents=True, exist_ok=True)
 
 app.mount(
     "/charts",
