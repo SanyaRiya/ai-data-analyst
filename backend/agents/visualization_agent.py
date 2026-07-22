@@ -86,7 +86,7 @@ class VisualizationAgent:
         plt.close()
 
         # Return URL for frontend
-        return "/charts/histogram.png"
+        return str(chart_path)
 
     # ==========================================================
     # Box Plot
@@ -112,7 +112,7 @@ class VisualizationAgent:
 
         plt.close()
 
-        return "/charts/boxplot.png"
+        return str(chart_path)
 
     # ==========================================================
     # Correlation Heatmap
@@ -153,7 +153,7 @@ class VisualizationAgent:
 
         plt.close()
 
-        return "/charts/heatmap.png"
+        return str(chart_path)
 
     # ==========================================================
     # Revenue by Category
@@ -194,4 +194,4 @@ class VisualizationAgent:
 
         plt.close()
 
-        return "/charts/top_categories.png"
+        return str(chart_path)
