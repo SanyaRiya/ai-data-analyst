@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-CHART_DIR = Path("backend/charts")
+CHART_DIR = Path("charts")
 
 
 class VisualizationAgent:

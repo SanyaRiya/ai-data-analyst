@@ -2,7 +2,7 @@ import json
 from google import genai
 from google.genai import types
 
-from backend.config import GEMINI_API_KEY, GEMINI_MODEL
+from config import GEMINI_API_KEY, GEMINI_MODEL
 
 
 class InsightGenerationAgent:

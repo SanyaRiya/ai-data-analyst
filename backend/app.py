@@ -1,12 +1,12 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from backend.services.file_service import (
+from services.file_service import (
     save_uploaded_file,
     load_dataset,
 )
 
-from backend.agents.coordinator_agent import CoordinatorAgent
+from agents.coordinator_agent import CoordinatorAgent
 
 
 app = FastAPI(
@@ -25,13 +25,13 @@ app.add_middleware(
 
 app.mount(
     "/charts",
-    StaticFiles(directory="backend/charts"),
+    StaticFiles(directory="charts"),
     name="charts",
 )
 
 app.mount(
     "/reports",
-    StaticFiles(directory="backend/reports"),
+    StaticFiles(directory="reports"),
     name="reports",
 )
 

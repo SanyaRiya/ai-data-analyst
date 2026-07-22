@@ -16,8 +16,8 @@ class ReportGeneratorAgent:
 
     def __init__(self):
 
-        self.report_dir = Path("backend/reports")
-        self.report_dir.mkdir(exist_ok=True)
+        self.report_dir = Path("reports")
+        self.report_dir.mkdir(parents=True, exist_ok=True)
 
     def generate_report(self, filename: str, analysis_result: dict):
 
@@ -85,27 +85,30 @@ class ReportGeneratorAgent:
 
         for key, title in chart_titles.items():
 
-            chart_url = charts.get(key)
+            chart_path = charts.get(key)
 
-            if chart_url:
+            if chart_path:
 
-                chart_path = Path("backend") / chart_url.lstrip("/")
+                chart_path = Path(chart_path)
 
-            if chart_path.exists():
+                if chart_path.exists():
 
-                story.append(
-                Paragraph(f"<b>{title}</b>", styles["Heading3"])
-                )
-
-                story.append(
-                    Image(
-                        str(chart_path),
-                        width=450,
-                        height=280,
+                    story.append(
+                        Paragraph(
+                            f"<b>{title}</b>",
+                            styles["Heading3"],
+                        )
                     )
-                )
 
-                story.append(Spacer(1, 20))
+                    story.append(
+                        Image(
+                            str(chart_path),
+                            width=450,
+                            height=280,
+                        )
+                    )
+
+                    story.append(Spacer(1, 20))
 
         # =====================================================
         # Executive Summary
@@ -137,7 +140,10 @@ class ReportGeneratorAgent:
         for insight in insights["key_insights"]:
 
             story.append(
-                Paragraph(f"• {insight}", styles["BodyText"])
+                Paragraph(
+                    f"• {insight}",
+                    styles["BodyText"],
+                )
             )
 
         story.append(Spacer(1, 20))

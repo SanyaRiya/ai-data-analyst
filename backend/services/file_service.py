@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 
 
-UPLOAD_DIR = Path("backend/uploads")
+UPLOAD_DIR = Path("uploads")
 
 
 def save_uploaded_file(file, filename: str) -> Path:
