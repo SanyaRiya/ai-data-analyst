@@ -2,6 +2,8 @@ interface Props {
     charts: any;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Charts({ charts }: Props) {
 
     return (
@@ -18,7 +20,7 @@ export default function Charts({ charts }: Props) {
                     <h3 className="font-semibold mb-2">Histogram</h3>
 
                     <img
-                        src={`http://127.0.0.1:8000${charts.histogram}`}
+                        src={`${API_URL}${charts.histogram}`}
                         alt="Histogram"
                         className="rounded-lg border"
                     />
@@ -28,7 +30,7 @@ export default function Charts({ charts }: Props) {
                     <h3 className="font-semibold mb-2">Box Plot</h3>
 
                     <img
-                        src={`http://127.0.0.1:8000${charts.boxplot}`}
+                        src={`${API_URL}${charts.boxplot}`}
                         alt="Box Plot"
                         className="rounded-lg border"
                     />
@@ -38,7 +40,7 @@ export default function Charts({ charts }: Props) {
                     <h3 className="font-semibold mb-2">Heatmap</h3>
 
                     <img
-                        src={`http://127.0.0.1:8000${charts.heatmap}`}
+                        src={`${API_URL}${charts.heatmap}`}
                         alt="Heatmap"
                         className="rounded-lg border"
                     />
@@ -48,7 +50,7 @@ export default function Charts({ charts }: Props) {
                     <h3 className="font-semibold mb-2">Revenue by Item Type</h3>
 
                     <img
-                        src={`http://127.0.0.1:8000${charts.top_categories}`}
+                        src={`${API_URL}${charts.top_categories}`}
                         alt="Revenue"
                         className="rounded-lg border"
                     />

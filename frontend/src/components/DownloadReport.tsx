@@ -2,6 +2,8 @@ interface Props {
     reportPath: string;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function DownloadReport({ reportPath }: Props) {
 
     return (
@@ -13,10 +15,10 @@ export default function DownloadReport({ reportPath }: Props) {
             </h2>
 
             <a
-                href={`http://127.0.0.1:8000${reportPath}`}
+                href={`${API_URL}${reportPath}`}
                 target="_blank"
                 rel="noreferrer"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
             >
                 Download PDF Report
             </a>
