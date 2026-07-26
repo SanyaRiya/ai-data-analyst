@@ -68,13 +68,10 @@ class VisualizationAgent:
         column = self._get_best_numeric_column(dataset)
 
         plt.figure(figsize=(8, 5))
-
         plt.hist(dataset[column], bins=15)
 
         plt.title(f"Distribution of {column}")
-
         plt.xlabel(column)
-
         plt.ylabel("Frequency")
 
         plt.tight_layout()
@@ -82,11 +79,9 @@ class VisualizationAgent:
         chart_path = CHART_DIR / "histogram.png"
 
         plt.savefig(chart_path)
-
         plt.close()
 
-        # Return URL for frontend
-        return str(chart_path)
+        return "/charts/histogram.png"
 
     # ==========================================================
     # Box Plot
@@ -101,7 +96,6 @@ class VisualizationAgent:
         plt.boxplot(dataset[column])
 
         plt.title(f"Box Plot of {column}")
-
         plt.ylabel(column)
 
         plt.tight_layout()
@@ -109,10 +103,9 @@ class VisualizationAgent:
         chart_path = CHART_DIR / "boxplot.png"
 
         plt.savefig(chart_path)
-
         plt.close()
 
-        return str(chart_path)
+        return "/charts/boxplot.png"
 
     # ==========================================================
     # Correlation Heatmap
@@ -127,7 +120,6 @@ class VisualizationAgent:
         plt.figure(figsize=(8, 6))
 
         plt.imshow(corr, cmap="coolwarm")
-
         plt.colorbar()
 
         plt.xticks(
@@ -150,16 +142,15 @@ class VisualizationAgent:
         chart_path = CHART_DIR / "heatmap.png"
 
         plt.savefig(chart_path)
-
         plt.close()
 
-        return str(chart_path)
+        return "/charts/heatmap.png"
 
     # ==========================================================
     # Revenue by Category
     # ==========================================================
 
-    def _generate_top_categories(self, dataset: pd.DataFrame):
+    def _generate_top_categories(self, dataset: pd.DataFrame) -> str | None:
 
         if (
             "Item Type" not in dataset.columns
@@ -179,9 +170,7 @@ class VisualizationAgent:
         revenue.plot(kind="bar")
 
         plt.title("Top Revenue by Item Type")
-
         plt.xlabel("Item Type")
-
         plt.ylabel("Revenue")
 
         plt.xticks(rotation=45)
@@ -191,7 +180,6 @@ class VisualizationAgent:
         chart_path = CHART_DIR / "top_categories.png"
 
         plt.savefig(chart_path)
-
         plt.close()
 
-        return str(chart_path)
+        return "/charts/top_categories.png"
