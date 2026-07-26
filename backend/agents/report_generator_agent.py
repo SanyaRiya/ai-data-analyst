@@ -89,9 +89,10 @@ class ReportGeneratorAgent:
 
             if chart_path:
 
-                chart_path = Path(chart_path)
+                # Convert frontend URL to local filesystem path
+                local_chart_path = Path(chart_path.lstrip("/"))
 
-                if chart_path.exists():
+                if local_chart_path.exists():
 
                     story.append(
                         Paragraph(
@@ -102,7 +103,7 @@ class ReportGeneratorAgent:
 
                     story.append(
                         Image(
-                            str(chart_path),
+                            str(local_chart_path),
                             width=450,
                             height=280,
                         )
